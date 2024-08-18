@@ -5,6 +5,7 @@ import Common.service.UserService;
 import Server.provider.ServiceProvider;
 import Server.server.RpcServer;
 import Server.server.impl.SimpleRPCRPCServer;
+import Server.server.impl.ThreadPoolRPCRPCServer;
 
 public class TestServer {
     public static void main(String[] args) {
@@ -14,6 +15,7 @@ public class TestServer {
         serviceProvider.provideServiceInterface(userService);
 
         RpcServer server = new SimpleRPCRPCServer(serviceProvider);
+        //RpcServer server = new ThreadPoolRPCRPCServer(serviceProvider);
         server.start(9999);
     }
 }
