@@ -1,5 +1,8 @@
 package Common.Message;
 
+import lombok.Builder;
+import lombok.Data;
+
 import java.io.Serializable;
 
 /**
@@ -8,6 +11,8 @@ import java.io.Serializable;
  * @create 2024/8/18 14:24
  * 定义发送消息格式
  */
+@Data
+@Builder
 public class RpcRequest implements Serializable {
 
     //服务类名，客户端只知道接口
