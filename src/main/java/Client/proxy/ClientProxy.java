@@ -44,7 +44,6 @@ public class ClientProxy implements InvocationHandler {
     public <T>T getProxy(Class<T> clazz){
         Object o = Proxy.newProxyInstance(clazz.getClassLoader(), new Class[]{clazz}, this);
         return (T) o;
-
     }
 
 

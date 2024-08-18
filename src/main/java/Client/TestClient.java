@@ -9,7 +9,7 @@ public class TestClient {
         ClientProxy clientProxy = new ClientProxy("127.0.0.1", 9999);
         UserService proxy = clientProxy.getProxy(UserService.class);
 
-        User user = proxy.getUserByUserId(4);
+        User user = proxy.getUserByUserId(1);
         System.out.println("从服务端获取User："+user.toString());
 
         User user1 = User.builder().
