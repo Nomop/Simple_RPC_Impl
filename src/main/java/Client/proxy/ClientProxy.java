@@ -12,7 +12,7 @@ import java.lang.reflect.Proxy;
 /**
  * @Description 客户端代理类
  * @Author nomo
- * @Version 1.0
+ * @Version 1.1
  * @Date 2024/8/18 15:15
  */
 @AllArgsConstructor
