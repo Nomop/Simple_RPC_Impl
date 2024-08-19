@@ -23,8 +23,7 @@ public class ServiceProvider {
         String serviceName = service.getClass().getName();
         Class<?>[] interfaceName = service.getClass().getInterfaces();
 
-
-        for(Class<?> clazz : interfaceName){
+            for(Class<?> clazz : interfaceName){
             interfaceProvider.put(clazz.getName(),service);
         }
     }
