@@ -1,6 +1,5 @@
 package Client.proxy;
 
-import Client.IOClient;
 import Client.rpcClient.RpcClient;
 import Client.rpcClient.impl.NettyRpcClient;
 import Client.rpcClient.impl.SimpleSocketRpcClient;
@@ -35,6 +34,7 @@ public class ClientProxy implements InvocationHandler {
         switch (choose){
             case 0:
                 rpcClient = new NettyRpcClient(host,port);
+                break;
             case 1:
                 rpcClient = new SimpleSocketRpcClient(host, port);
         }
@@ -48,7 +48,7 @@ public class ClientProxy implements InvocationHandler {
         //构建Request
         RpcRequest request = RpcRequest.builder()
                 .interfaceName(method.getDeclaringClass().getName())
-                .methonName(method.getName())
+                .methodName(method.getName())
                 .params(args)
                 .paramsType(method.getParameterTypes())
                 .build();

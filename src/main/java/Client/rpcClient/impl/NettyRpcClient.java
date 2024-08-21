@@ -21,8 +21,8 @@ import io.netty.util.AttributeKey;
 public class NettyRpcClient implements RpcClient {
     private String host;
     private int port;
-    private static Bootstrap bootstrap;
-    private static EventLoopGroup eventLoopGroup;
+    private static final Bootstrap bootstrap;
+    private static final EventLoopGroup eventLoopGroup;
 
     public NettyRpcClient(String host, int port) {
         this.host = host;
@@ -59,7 +59,7 @@ public class NettyRpcClient implements RpcClient {
             AttributeKey<RpcResponse> key = AttributeKey.valueOf("RPCResponse");
             RpcResponse response = channel.attr(key).get();
 
-            System.out.println(request);
+            System.out.println(response);
             return response;
         }catch (InterruptedException e){
             e.printStackTrace();

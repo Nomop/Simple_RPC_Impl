@@ -1,6 +1,6 @@
 package Server.netty.nettyInitializer;
 
-import Client.netty.handler.NettyClientHandler;
+
 import Server.netty.handler.NettyRPCServerHandler;
 import Server.provider.ServiceProvider;
 import io.netty.channel.ChannelInitializer;

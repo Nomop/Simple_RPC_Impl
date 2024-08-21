@@ -42,7 +42,7 @@ public class NettyRPCServerHandler extends SimpleChannelInboundHandler<RpcReques
 
         //反射调用方法
         try{
-            method = service.getClass().getMethod(rpcRequest.getMethonName(), rpcRequest.getParamsType());
+            method = service.getClass().getMethod(rpcRequest.getMethodName(), rpcRequest.getParamsType());
             Object invoke = method.invoke(service,rpcRequest.getParams());
             //invoke是方法调用返回值
             return RpcResponse.success(invoke);
