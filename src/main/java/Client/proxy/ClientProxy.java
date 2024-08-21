@@ -24,7 +24,7 @@ public class ClientProxy implements InvocationHandler {
     //从注册中心获取host和port，
     private RpcClient rpcClient;
 
-    public ClientProxy(String host, int port) {
+    public ClientProxy() {
         rpcClient = new NettyRpcClient();
     }
 
