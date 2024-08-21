@@ -21,24 +21,13 @@ import java.lang.reflect.Proxy;
 public class ClientProxy implements InvocationHandler {
 
     //服务端地址,封装到rpcClient内部，直接通过代理使用客户端就行
-//    private String host;
-//    private int port;
-
+    //从注册中心获取host和port，
     private RpcClient rpcClient;
 
     public ClientProxy(String host, int port) {
-        rpcClient = new NettyRpcClient(host,port);
+        rpcClient = new NettyRpcClient();
     }
 
-    public ClientProxy(String host, int port, int choose){
-        switch (choose){
-            case 0:
-                rpcClient = new NettyRpcClient(host,port);
-                break;
-            case 1:
-                rpcClient = new SimpleSocketRpcClient(host, port);
-        }
-    }
 
     //代理对象拦截，在invoke增强执行
     //具体来说，进行反射获取request对象，socket发送到服务端

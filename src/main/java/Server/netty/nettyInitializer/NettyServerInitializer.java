@@ -22,11 +22,9 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
     private ServiceProvider serviceProvider;
-
     @Override
     protected void initChannel(SocketChannel ch) throws Exception {
         ChannelPipeline pipeline = ch.pipeline();
-
         //消息格式 【长度】【消息体】，解决沾包问题
         pipeline.addLast(
                 new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE,0,4,0,4));
@@ -42,7 +40,6 @@ public class NettyServerInitializer extends ChannelInitializer<SocketChannel> {
                 return Class.forName(className);
             }
         }));
-
         pipeline.addLast(new NettyRPCServerHandler(serviceProvider));
     }
 }

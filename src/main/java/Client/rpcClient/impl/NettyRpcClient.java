@@ -2,6 +2,8 @@ package Client.rpcClient.impl;
 
 import Client.netty.NettyInitializer.NettyClientInitializer;
 import Client.rpcClient.RpcClient;
+import Client.serviceCenter.ServiceCenter;
+import Client.serviceCenter.ZKServiceCenter;
 import Common.Message.RpcRequest;
 import Common.Message.RpcResponse;
 import io.netty.bootstrap.Bootstrap;
@@ -12,21 +14,22 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import io.netty.util.AttributeKey;
 
+import java.net.InetSocketAddress;
+
 /**
  * @Description 通过 Netty 的异步非阻塞机制实现底层Rpc客户端通信
  * @Author nomo
- * @Version 1.1
+ * @Version 1.2
  * @Date 2024/8/19 19:58
  */
 public class NettyRpcClient implements RpcClient {
-    private String host;
-    private int port;
+
     private static final Bootstrap bootstrap;
     private static final EventLoopGroup eventLoopGroup;
 
-    public NettyRpcClient(String host, int port) {
-        this.host = host;
-        this.port = port;
+    private ServiceCenter serviceCenter;
+    public  NettyRpcClient() {
+        this.serviceCenter = new ZKServiceCenter();
     }
 
     //netty客户端初始化
@@ -40,10 +43,13 @@ public class NettyRpcClient implements RpcClient {
 
     @Override
     public RpcResponse sendRequest(RpcRequest request) {
-        try{
+        //从注册中心获取host,post
+        InetSocketAddress address =serviceCenter.serviceDiscovery(request.getInterfaceName());
+        String host = address.getHostName();
+        int port = address.getPort();
 
-            //创建channelFuture对象，相当于操作事件
-            //sync()会阻塞当前线程，直到连接操作完成。
+        try{
+            //创建channelFuture对象，相当于操作事件,sync()会阻塞当前线程，直到连接操作完成。
             ChannelFuture channelFuture = bootstrap.connect(host, port).sync();
             //channel相当于socket，一个连接对象
             Channel channel = channelFuture.channel();
