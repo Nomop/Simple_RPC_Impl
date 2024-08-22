@@ -1,16 +1,22 @@
 package Common.Message;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
 /**
+ * @Description 定义发送消息格式
+ * 1.3 增加构造器，fastJSON需要构建消息实例
  * @author nomo
  * @version 1.0
  * @create 2024/8/18 14:24
- * 定义发送消息格式
+ *
  */
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @Builder
 public class RpcRequest implements Serializable {

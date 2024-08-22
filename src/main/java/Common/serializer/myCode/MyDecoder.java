@@ -21,7 +21,7 @@ public class MyDecoder extends ByteToMessageDecoder {
         short messageType = in.readShort();
         // 现在还只支持request与response请求
         if(messageType != MessageType.REQUEST.getCode() && messageType != MessageType.RESPONSE.getCode()){
-            System.out.println("暂时不支持此种数据");
+            System.out.println("解码器暂时不支持此种数据");
             return;
         }
         //2.读取序列化方式和类型
@@ -31,7 +31,7 @@ public class MyDecoder extends ByteToMessageDecoder {
             throw new RuntimeException("不存在对应的序列器");
         }
         //3.读取序列化数组长度
-        short length = in.readShort();
+        int length = in.readInt();
         //4.读取序列化数组
         byte[] bytes = new byte[length];
         in.readBytes(bytes);

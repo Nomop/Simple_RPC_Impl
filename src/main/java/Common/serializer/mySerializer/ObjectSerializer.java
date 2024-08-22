@@ -26,8 +26,8 @@ public class ObjectSerializer implements Serializer{
             oos.flush();
             //将bos其内部缓冲区中的数据转换为字节数组，并返回该数组
             bytes = bos.toByteArray();
-            bos.close();
             oos.close();
+            bos.close();
         }catch (IOException e){
             e.printStackTrace();
         }

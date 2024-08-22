@@ -34,7 +34,7 @@ public class MyEncoder extends MessageToByteEncoder {
         //得到序列化数组
         byte[] serializeBytes = serializer.serialize(msg);
         //3.写入长度
-        out.writeShort(serializeBytes.length);
+        out.writeInt(serializeBytes.length);
         //4.写入序列化数组
         out.writeBytes(serializeBytes);
     }

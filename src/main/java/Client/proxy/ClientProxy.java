@@ -17,7 +17,6 @@ import java.lang.reflect.Proxy;
  * @Version 1.1
  * @Date 2024/8/18 15:15
  */
-@AllArgsConstructor
 public class ClientProxy implements InvocationHandler {
 
     //服务端地址,封装到rpcClient内部，直接通过代理使用客户端就行
