@@ -5,7 +5,7 @@ import java.io.*;
 /**
  * @Description Java 内置的序列化机制实现的 Java 对象与字节数组的序列化和反序列化
  * @Author nomo
- * @Version 1.2
+ * @Version 1.3
  * @Date 2024/8/22 9:12
  */
 public class ObjectSerializer implements Serializer{

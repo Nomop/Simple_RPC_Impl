@@ -3,7 +3,7 @@ package Common.serializer.mySerializer;
 /**
  * @Description 序列器接口
  * @Author nomo
- * @Version 1.2
+ * @Version 1.3
  * @Date 2024/8/22 9:08
  */
 public interface Serializer {

@@ -5,9 +5,9 @@ import Common.Message.RpcResponse;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 /**
- * @Description
+ * @Description JSON序列器
  * @Author nomo
- * @Version 1.2
+ * @Version 1.3
  * @Date 2024/8/22 9:12
  */
 public class JsonSerializer implements Serializer{
