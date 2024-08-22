@@ -21,6 +21,9 @@ public class RpcResponse implements Serializable {
     private String msg;
     private Object data;
 
+    //增加传输数据类型，用于序列器解析
+    private Class<?> dataType;
+
     //构造成功信息
     public static RpcResponse success(Object data){
         return RpcResponse.builder()
