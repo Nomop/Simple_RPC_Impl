@@ -23,7 +23,7 @@ public class ClientProxy implements InvocationHandler {
     //从注册中心获取host和port，
     private RpcClient rpcClient;
 
-    public ClientProxy() {
+    public ClientProxy() throws InterruptedException {
         rpcClient = new NettyRpcClient();
     }
 

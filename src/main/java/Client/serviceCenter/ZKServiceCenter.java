@@ -1,5 +1,7 @@
 package Client.serviceCenter;
 
+import Client.cache.serviceCache;
+import Client.serviceCenter.ZkWatcher.watchZK;
 import com.google.common.base.Strings;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
@@ -11,6 +13,7 @@ import java.util.List;
 
 /**
  * @Description 基于 Zookeeper 的服务注册与发现组件
+ * 1.4 增加本地缓存
  * @Author nomo
  * @Version 1.2
  * @Date 2024/8/21 11:12
@@ -20,9 +23,11 @@ public class ZKServiceCenter implements ServiceCenter{
     private CuratorFramework client;
     //zookeeper虚拟根路径节点
     private static final String ROOT_PATH = "MyRPC";
+    //本地缓存
+    private serviceCache cache;
 
     //zookeeper客户端初始化，并与服务端Zookeeper进行连接
-    public ZKServiceCenter(){
+    public ZKServiceCenter() throws InterruptedException {
         // 指数时间重试
         RetryPolicy policy = new ExponentialBackoffRetry(1000,3);
         // zookeeper的地址固定，不管是服务提供者还是，消费者都要与之建立连接
@@ -37,15 +42,28 @@ public class ZKServiceCenter implements ServiceCenter{
                 .build();
         this.client.start();
         System.out.println("zookeeper 连接成功");
+
+        //初始化本地缓存
+        cache =  new serviceCache();
+        //加入ZK监听器
+        watchZK watcher = new watchZK(client, cache);
+        //监听启动
+        watcher.watchToUpdate(ROOT_PATH);
     }
 
     //根据服务名（接口名）查询服务，返回地址
     @Override
     public InetSocketAddress serviceDiscovery(String serviceName) {
         try{
-            List<String> strings = client.getChildren().forPath("/" + serviceName);
+            //先从本地缓存找
+            List<String> serviceList = cache.getServiceFromCache(serviceName);
+            //如果找不到，再去zookeeper中找
+            //这种i情况基本不会发生，或者说只会出现在初始化阶段
+            if(serviceList == null){
+                serviceList = client.getChildren().forPath("/" + serviceName);
+            }
             //默认返回服务的第一个子节点，后面可增加为负载均衡
-            String string = strings.get(0);
+            String string = serviceList.get(0);
             return parseAddress(string);
         }catch (Exception e){
             e.printStackTrace();
