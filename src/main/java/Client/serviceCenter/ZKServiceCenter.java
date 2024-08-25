@@ -2,6 +2,7 @@ package Client.serviceCenter;
 
 import Client.cache.serviceCache;
 import Client.serviceCenter.ZkWatcher.watchZK;
+import Client.serviceCenter.balance.impl.ConsistencyHashBalance;
 import com.google.common.base.Strings;
 import org.apache.curator.RetryPolicy;
 import org.apache.curator.framework.CuratorFramework;
@@ -62,9 +63,9 @@ public class ZKServiceCenter implements ServiceCenter{
             if(serviceList == null){
                 serviceList = client.getChildren().forPath("/" + serviceName);
             }
-            //默认返回服务的第一个子节点，后面可增加为负载均衡
-            String string = serviceList.get(0);
-            return parseAddress(string);
+            //负载均衡得到地址
+            String address = new ConsistencyHashBalance().balance(serviceList);
+            return parseAddress(address);
         }catch (Exception e){
             e.printStackTrace();
         }
