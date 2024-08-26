@@ -10,5 +10,5 @@ import java.net.InetSocketAddress;
  */
 public interface ServiceRegister {
     //注册保存服务与对应地址
-    void register(String serviceName, InetSocketAddress serviceAddress);
+    void register(String serviceName, InetSocketAddress serviceAddress,boolean canRetry);
 }

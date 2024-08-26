@@ -32,7 +32,7 @@ public class ServiceProvider {
     }
 
     //注册服务实现对象
-    public void provideServiceInterface(Object service){
+    public void provideServiceInterface(Object service, boolean canRetry){
         String serviceName = service.getClass().getName();
         Class<?>[] interfaceName = service.getClass().getInterfaces();
 
@@ -40,7 +40,7 @@ public class ServiceProvider {
             //本机的映射表
             interfaceProvider.put(clazz.getName(),service);
             //注册中心进行注册
-            serviceRegister.register(clazz.getName(), new InetSocketAddress(host,port));
+            serviceRegister.register(clazz.getName(), new InetSocketAddress(host,port),canRetry);
         }
     }
 
