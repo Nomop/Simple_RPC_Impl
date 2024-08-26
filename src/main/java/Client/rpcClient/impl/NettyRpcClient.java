@@ -28,8 +28,8 @@ public class NettyRpcClient implements RpcClient {
     private static final EventLoopGroup eventLoopGroup;
 
     private ServiceCenter serviceCenter;
-    public  NettyRpcClient() throws InterruptedException {
-        this.serviceCenter = new ZKServiceCenter();
+    public  NettyRpcClient(ServiceCenter serviceCenter) throws InterruptedException {
+        this.serviceCenter = serviceCenter;
     }
 
     //netty客户端初始化

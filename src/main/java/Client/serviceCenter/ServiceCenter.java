@@ -11,4 +11,6 @@ import java.net.InetSocketAddress;
 public interface ServiceCenter {
     //根据服务名查询地址
     InetSocketAddress serviceDiscovery(String serviceName);
+    //判断是否可以重试
+    boolean checkRetry(String serviceName);
 }
